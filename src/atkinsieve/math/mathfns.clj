@@ -1,5 +1,5 @@
 (ns
-  atkinsieve.math.math-fns)
+  atkinsieve.math.mathfns)
 
 
 (defn square     [x]     (* x x))
