@@ -1,8 +1,7 @@
 (ns
   atkinsieve.test.math.mathfns
   (:use clojure.test )
-  (:use atkinsieve.math.mathfns)
-  )
+  (:use atkinsieve.math.mathfns))
 
 (deftest squares-test
   (is (= (map #(*  % %) (range 10)) (map square (range 10)))))
