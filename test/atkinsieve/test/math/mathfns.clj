@@ -6,7 +6,8 @@
   )
 
 (deftest squares-test
-  (is (= (map #(*  % %) (range 10)) (map square (range 10)))))
+  (let [r 123]
+    (is (= (map #(*  % %) (range r)) (map square (range r))))))
 
 (deftest multiply-test
   (let [q 32289 r 5]
