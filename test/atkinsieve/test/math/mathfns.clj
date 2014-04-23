@@ -9,9 +9,11 @@
   (is (= (map #(*  % %) (range 10)) (map square (range 10)))))
 
 (deftest multiply-test
-  (is (= (map #(multiply % 7639) (range 5)) (map #(* % 7639) (range 5)))))
+  (let [q 32289 r 5]
+    (is (= (map #(multiply % q) (range r)) (map #(* % q) (range r))))) )
 
 (deftest plus-test
-  (is (= (map #(plus % 1763129) (range 5)) (map #(+ % 1763129) (range 5)))))
+  (let [q 1763129 r 5]
+    (is (= (map #(plus % q) (range r)) (map #(+ % q) (range r))))) )
 
 (run-all-tests)
