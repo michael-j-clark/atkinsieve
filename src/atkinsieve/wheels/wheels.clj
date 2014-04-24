@@ -4,12 +4,9 @@
   (:use [atkinsieve.math.mathfns]))
 
 
-
 (defprotocol WheelFact
   (calculate [this x y])
   (tst [this n]))
-
-
 
 (defrecord WheelOne
   [lim]
@@ -18,7 +15,6 @@
   (tst
     [this n]
     (true? (and (<= n lim) (or (n-mod-x-eq n 12 1)  (n-mod-x-eq n 12 5))))))
-
 
 
 (defrecord WheelTwo
@@ -38,7 +34,7 @@
     [this n]
     (true? (and (<= n lim) (n-mod-x-eq n 12 11) ))))
 
-;todo (x>y) condition in wheel three test?
+
 	
 
 
