@@ -33,7 +33,7 @@
 (defrecord WheelThree
   [lim]
   WheelFact
-  (calculate [this x y]  (minus (multiply 3 (square x)) (square y) ))
+  (calculate [this x y]  (cond (> x y) (minus (multiply 3 (square x)) (square y) ) :else (inc lim)))
   (tst
     [this n]
     (true? (and (<= n lim) (n-mod-x-eq n 12 11) ))))
