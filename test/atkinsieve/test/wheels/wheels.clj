@@ -32,16 +32,16 @@
                     (= (mod %1 12) 7)) v1)
           (map #(tst w2 %1 ) v1)))))
 
+;todo: There is a problem now.  When (x<=y), n = (inc lim). This test does not reflect that.
 (deftest wheel-three-calculate-test
-  (let [v1 [143 2 3] v2 [4 5988 6]]
+  (let [v1 [143 2 3 32 234 123 1] v2 [4 5988 6 234  345 876 (+ (* 12 5) 11)]]
     (is (= (map #(- (* 3 (* %1 %1)) (* %2 %2) ) v1 v2)
           (map #(calculate w3 %1 %2) v1 v2)))))
 
 (deftest wheel-three-tst-test
   (let [v1 [66143 200 8676743 542235 45 987 86 98098]]
-    (is (= (map #(and (and  (<= % lim)
-                   (= (mod %1 12) 11)) v1)
-                   (> %1 %2))
-          (map #(tst w3 %1 ) v1)))))
+    (is (= (map #(and (<= % lim)
+                   (= (mod %1 12) 11)) v1))
+          (map #(tst w3 %1 ) v1))))
 
 (run-all-tests)
