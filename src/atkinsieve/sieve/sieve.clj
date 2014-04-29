@@ -1,13 +1,26 @@
 (ns
-  atkinsieve.sieve.sieve)
+  atkinsieve.sieve.sieve
+  (:use [atkinsieve.wheels.wheels] )
+  )
 
-(def ^:dynamic coll)
+
+(defn first-sieve
+  "do quadratic ~wheel factorizations~"
+  [x y lim coll]
+  (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
+    coll
+    (do
+      (if (>= y (dec (Math/sqrt lim)))
+        (let [w1 (->WheelOne lim coll)]
+          (recur (inc x) 1 lim ((factor w1 x y)))
+          (recur x (inc y) lim ((factor w1 x y))))))))
+
+
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
   (binding [coll (apply vector (cons 1 (cons 1(take (- lim 2) (repeat false)))))]
-    ;todo call WheelOne
-  ))
+    (first-sieve 1 1 lim coll)))
 
 
 (defn -main "main function"
