@@ -20,7 +20,7 @@
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
-  (binding [coll (get-coll lim)]
+  (binding [coll (gen-coll lim)]
     (first-sieve 1 1 lim coll)))
 
 
