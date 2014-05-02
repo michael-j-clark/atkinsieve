@@ -1,11 +1,15 @@
 (ns
   atkinsieve.test.wheels.wheels
   (:use clojure.test )
-  (:use atkinsieve.wheels.wheels))
+  (:use atkinsieve.wheels.wheels)
+  (:use atkinsieve.sieve.collgen))
+
 (def lim 200000)
-(def w1  (->WheelOne lim))
-(def w2  (->WheelTwo lim))
-(def w3  (->WheelThree lim))
+(def coll (get-coll lim))
+
+(def w1  (->WheelOne lim coll))
+(def w2  (->WheelTwo lim coll))
+(def w3  (->WheelThree lim coll))
 
 (deftest test-test (is (= 1 1)))
 
