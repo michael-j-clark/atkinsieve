@@ -5,7 +5,7 @@
   (:use atkinsieve.sieve.collgen))
 
 (def lim 200000)
-(def coll (get-coll lim))
+(def coll (gen-coll lim))
 
 (def w1  (->WheelOne lim coll))
 (def w2  (->WheelTwo lim coll))
