@@ -2,7 +2,7 @@
   atkinsieve.wheels.wheels
   (:require [clojure.core.match :refer [match]])
   (:use [atkinsieve.math.mathfns])
-  (:use atkinsieve.sieve.collgen))
+  )
 
 
 (defprotocol WheelFact
