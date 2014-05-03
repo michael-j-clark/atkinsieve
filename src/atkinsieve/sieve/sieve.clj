@@ -1,29 +1,31 @@
 (ns
   atkinsieve.sieve.sieve
-  (:use [atkinsieve.wheels.wheels] )
-  )
+  (:use atkinsieve.wheels.wheels)
+  (:use atkinsieve.sieve.collgen))
 
 
 (defn first-sieve
   "do quadratic ~wheel factorizations~"
-  [x y lim coll]
-  (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
-    coll
-    (do
-      (if (>= y (dec (Math/sqrt lim)))
-        (let [w1 (->WheelOne lim coll)]
-          (recur (inc x) 1 lim ((factor w1 x y)))
-          (recur x (inc y) lim ((factor w1 x y))))))))
+  [x y w lim]
+  ;todo: need some other control flow here like a loop.recur
+  (loop  [x x y y coll (factor w x y)]
+    (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
+      (factor w x y)
+      (do
+        (prn x y)
+        (if (>= y (dec (Math/sqrt lim)))
+          (recur (inc x) 1  (factor w x y))
+          (recur x (inc y)  (factor w x y)))))))
 
 
 
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
-  (binding [coll (gen-coll lim)]
-    (first-sieve 1 1 lim coll)))
+  (let [coll (gen-coll lim) w1 (->WheelOne lim coll)]
+    (first-sieve 1 1 w1 lim)))
 
 
 (defn -main "main function"
   [& args]
-  (sieve-of-atkin (read-string (first args))))
+  (prn (sieve-of-atkin 20)));read-string (first args)))))
