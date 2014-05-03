@@ -8,21 +8,21 @@
   "do quadratic ~wheel factorizations~"
   [x y w lim]
   ;todo: need some other control flow here like a loop.recur
-  (loop  [x x y y coll (factor w x y)]
+  (loop  [x x y y coll (gen-coll lim)]
     (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
-      (factor w x y)
+      coll
       (do
         (prn x y)
         (if (>= y (dec (Math/sqrt lim)))
-          (recur (inc x) 1  (factor w x y))
-          (recur x (inc y)  (factor w x y)))))))
+          (recur (inc x) 1  (factor w x y coll))
+          (recur x (inc y)  (factor w x y coll)))))))
 
 
 
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
-  (let [coll (gen-coll lim) w1 (->WheelOne lim coll)]
+  (let [w1 (->WheelOne lim)]
     (first-sieve 1 1 w1 lim)))
 
 
