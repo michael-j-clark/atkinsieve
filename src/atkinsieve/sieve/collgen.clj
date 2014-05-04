@@ -5,4 +5,9 @@
 (defn gen-coll "make the collection, a boolean vector w/ first two elems true" [lim]
   (apply vector (cons true (cons true (cons true (take (- lim 3) (repeat false)))))))
 
-(defn rand-int-vec [n lim] (apply vector (take n (repeatedly #(rand-int lim)))))
+(defn rand-int-vec
+  "generate vector of n random ints between ???"
+  [n lim]
+  {:pre (number? lim)}
+  (into [] (take n (repeatedly #(rand-int lim)))))
+
