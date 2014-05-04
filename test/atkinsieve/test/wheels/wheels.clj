@@ -4,18 +4,22 @@
   (:use atkinsieve.wheels.wheels)
   (:use atkinsieve.sieve.collgen))
 
-(def lim 200000)
+(def lim 20)
 (def coll (gen-coll lim))
 
-(def w1  (->WheelOne lim coll))
-(def w2  (->WheelTwo lim coll))
-(def w3  (->WheelThree lim coll))
+(def w1  (->WheelOne lim))
+(def w2  (->WheelTwo lim))
+(def w3  (->WheelThree lim))
+
+
 
 (deftest test-test (is (= 1 1)))
 
 
+
+
 (deftest wheel-one-calculate-test
-  (let [v1 [143 2 3] v2 [4 5988 6]] 
+  (let [v1 (rand-int-vec 5 lim) v2 [4 5988 6 123 4323]]
     (is (= (map #(+ (* 4 (* %1 %1)) (* %2 %2)) v1 v2) 
            (map #(calculate w1 %1 %2) v1 v2)))))
 		 
