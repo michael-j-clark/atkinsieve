@@ -7,15 +7,12 @@
 (defn first-sieve
   "do quadratic ~wheel factorizations~"
   [x y w lim]
-  ;todo: need some other control flow here like a loop.recur
   (loop  [x x y y coll (gen-coll lim)]
     (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
       coll
-      (do
-        (prn x y)
-        (if (>= y (dec (Math/sqrt lim)))
-          (recur (inc x) 1  (factor w x y coll))
-          (recur x (inc y)  (factor w x y coll)))))))
+      (if (>= y (dec (Math/sqrt lim)))
+        (recur (inc x) 1  (factor w x y coll))
+        (recur x (inc y)  (factor w x y coll))))))
 
 
 
@@ -28,4 +25,9 @@
 
 (defn -main "main function"
   [& args]
-  (prn (sieve-of-atkin 20)));read-string (first args)))))
+
+  (let [lim (-> args (first) (read-string))]
+    (if (> 3 (read-string (first args))) ;todo: find better/idiomatic way to validate input!
+      (do (prn "first arg must be integer > 3") (java.lang.System/exit 0)))
+
+    (-> lim (sieve-of-atkin))))
