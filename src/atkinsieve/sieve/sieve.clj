@@ -8,7 +8,7 @@
   "do quadratic ~wheel factorizations~"
   [x y w lim]
   (loop  [x x y y coll (gen-coll lim)]
-    (if (and (>= x (dec (Math/sqrt lim))) (>= y (dec (Math/sqrt lim))))
+    (if (and (>= x (dec (Math/sqrt lim))) (>= y  (-> lim (Math/sqrt) (dec))))
       coll
       (if (>= y (dec (Math/sqrt lim)))
         (recur (inc x) 1  (factor w x y coll))
@@ -22,12 +22,18 @@
   (let [w1 (->WheelOne lim)]
     (first-sieve 1 1 w1 lim)))
 
-;return first arg from args
+(comment
+  @param [args] seq (clojure.lang.ArraySeq) to -main
+  @return first arg from args
+  @throws ClassCastException thrown if NaN)
 (defn- first-arg [args]
-  (-> args (first)))
+  (-> args (first) (read-string)))
 
+(comment
+  @param [& args] command line args)
 (defn -main "main function"
   [& args]
-  {:pre [(number? (first-arg args)) (< 3 (-> args (first-arg) (read-string)))]}
+  {:pre [ (< 3 (-> args (first-arg)))]}
+  (prn (type args))
   (let [lim (first-arg args)]
     (-> lim (sieve-of-atkin))))
