@@ -22,12 +22,12 @@
   (let [w1 (->WheelOne lim)]
     (first-sieve 1 1 w1 lim)))
 
+;return first arg from args
+(defn- first-arg [args]
+  (-> args (first)))
 
 (defn -main "main function"
   [& args]
-
-  (let [lim (-> args (first) (read-string))]
-    (if (> 3 (read-string (first args))) ;todo: find better/idiomatic way to validate input!
-      (do (prn "first arg must be integer > 3") (java.lang.System/exit 0)))
-
+  {:pre [(number? (first-arg args)) (< 3 (-> args (first-arg) (read-string)))]}
+  (let [lim (first-arg args)]
     (-> lim (sieve-of-atkin))))
