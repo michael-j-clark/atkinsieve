@@ -8,7 +8,7 @@
   (* x x))
 (defn multiply   [x y]
   {:pre  [(number? x)]
-   :post [(= % (+ x y))]}
+   :post [(= % (* x y))]}
   (* x y))
 (defn plus       [x y]   (+ x y))
 (defn multiply   [x y]   (* x y))
