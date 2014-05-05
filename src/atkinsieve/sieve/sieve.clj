@@ -1,10 +1,11 @@
 (ns
   atkinsieve.sieve.sieve
   (:use atkinsieve.wheels.wheels)
-  (:use atkinsieve.sieve.collgen))
+  (:use atkinsieve.sieve.collgen)
+  (:require [clojure.core.typed :refer [ann AnyInteger Seq check-ns]]))
 
 
-(defn first-sieve
+(defn- first-sieve
   "do quadratic ~wheel factorizations~"
   [x y w lim]
   (loop  [x x y y coll (gen-coll lim)]
@@ -14,8 +15,7 @@
         (recur (inc x) 1  (factor w x y coll))
         (recur x (inc y)  (factor w x y coll))))))
 
-
-
+(ann sieve-of-atkin [AnyInteger -> Seq])
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
@@ -26,14 +26,8 @@
   @param [args] seq (clojure.lang.ArraySeq) to -main
   @return first arg from args
   @throws ClassCastException thrown if NaN)
-(defn- first-arg [args]
+(defn first-arg [args]
   (-> args (first) (read-string)))
 
-(comment
-  @param [& args] command line args)
-(defn -main "main function"
-  [& args]
-  {:pre [ (< 3 (-> args (first-arg)))]}
-  (prn (type args))
-  (let [lim (first-arg args)]
-    (-> lim (sieve-of-atkin))))
+
+
