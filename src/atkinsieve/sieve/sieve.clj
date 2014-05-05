@@ -7,20 +7,20 @@
 
 (defn- first-sieve
   "do quadratic ~wheel factorizations~"
-  [x y w lim]
-  (loop  [x x y y coll (gen-coll lim)]
+  [wheel lim]
+  (loop  [x 1 y 1 coll (gen-coll lim)]
     (if (and (>= x (dec (Math/sqrt lim))) (>= y  (-> lim (Math/sqrt) (dec))))
       coll
       (if (>= y (dec (Math/sqrt lim)))
-        (recur (inc x) 1  (factor w x y coll))
-        (recur x (inc y)  (factor w x y coll))))))
+        (recur (inc x) 1  (factor wheel x y coll))
+        (recur x (inc y)  (factor wheel x y coll))))))
 
 (ann sieve-of-atkin [AnyInteger -> Seq])
 (defn sieve-of-atkin
   "optimized Sieve of Eratosthenes"
   [lim]
   (let [w1 (->WheelOne lim)]
-    (first-sieve 1 1 w1 lim)))
+    (first-sieve w1 lim)))
 
 (comment
   @param [args] seq (clojure.lang.ArraySeq) to -main
