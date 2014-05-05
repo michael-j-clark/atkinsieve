@@ -1,5 +1,5 @@
 (ns
-  atkinsieve.test.math.mathfns
+  atkinsieve.test.math.testmathfns
   (:use clojure.test)
   (:use atkinsieve.math.mathfns))
 
