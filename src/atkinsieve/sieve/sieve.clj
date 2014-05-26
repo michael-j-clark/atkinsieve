@@ -6,10 +6,10 @@
 
 (ann lte-lim?
   (All [x y]
-    (Fn  [AnyInteger -> AnyInteger -> boolean]
-         [AnyInteger -> AnyInteger -> AnyInteger -> boolean])))
+    (Fn [AnyInteger  AnyInteger -> boolean]
+        [AnyInteger  AnyInteger  AnyInteger -> boolean])))
 (defn lte-lim?
-  "where does comment go for arity-overloaded functions?"
+  ;"where does comment go for arity-overloaded functions?"
   ([x lim]
   (if (>= x (-> lim (Math/sqrt) (dec)))
       true
