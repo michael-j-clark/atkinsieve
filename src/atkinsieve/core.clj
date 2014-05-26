@@ -9,4 +9,4 @@
   [& args]
   {:pre [(< 3 (-> args (first-arg)))]}
   (let [lim (first-arg args)]
-    (-> lim (sieve-of-atkin))))
+    (println (-> lim (sieve-of-atkin)))))
