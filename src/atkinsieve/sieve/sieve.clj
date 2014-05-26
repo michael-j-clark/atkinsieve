@@ -4,14 +4,28 @@
   (:use atkinsieve.sieve.collgen)
   (:require [clojure.core.typed :refer [ann AnyInteger Seq check-ns]]))
 
+(ann lte-lim?
+  (All [x y]
+    (Fn  [AnyInteger -> AnyInteger -> boolean]
+         [AnyInteger -> AnyInteger -> AnyInteger -> boolean])))
+(defn lte-lim?
+  "where does comment go for arity-overloaded functions?"
+  ([x lim]
+  (if (>= x (-> lim (Math/sqrt) (dec)))
+      true
+      false))
+  ([x y lim]
+  (if (and (lte-lim? x lim) (lte-lim? y lim))
+    true
+    false)))
 
 (defn- first-sieve
   "do quadratic ~wheel factorizations~"
   [wheel lim]
   (loop  [x 1 y 1 coll (gen-coll lim)]
-    (if (and (>= x (dec (Math/sqrt lim))) (>= y  (-> lim (Math/sqrt) (dec))))
+    (if (and (lte-lim? x y lim))
       coll
-      (if (>= y (dec (Math/sqrt lim)))
+      (if (lte-lim? y lim)
         (recur (inc x) 1  (factor wheel x y coll))
         (recur x (inc y)  (factor wheel x y coll))))))
 
