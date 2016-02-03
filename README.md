@@ -1,1 +1,3 @@
-Implementation of the sieve of Atkin in clojure.
+# Sieve of Atkin
+  
+ -Sieve of Atkin implementation in clojure
